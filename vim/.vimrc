@@ -32,6 +32,9 @@ set splitbelow
 set hidden
 set confirm
 
+"" Delete trailing whitespaces on save
+autocmd BufWritePre * %s/\s\+$//e
+
 "" Whitespace
 set nowrap
 set tabstop=2 shiftwidth=2
