@@ -18,6 +18,9 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'janko-m/vim-test'
 Plugin 'davb5/wombat256dave'
 Plugin 'Shougo/neocomplete'
+Plugin 'fatih/vim-go'
+Plugin 'rbgrouleff/bclose.vim'
+Plugin 'vim-syntastic/syntastic'
 
 call vundle#end()
 filetype plugin indent on
@@ -133,3 +136,19 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+" BClose
+nnoremap <Leader>bd :Bclose<CR>
+
+" Syntaxtic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" vim-go
+let g:go_def_mapping_enabled = 1
