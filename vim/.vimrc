@@ -151,4 +151,23 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " vim-go
-let g:go_def_mapping_enabled = 1
+let g:go_def_mapping_enabled = 0
+autocmd FileType go nnoremap <buffer> <leader>d :GoDef<CR>
+autocmd FileType go nnoremap <buffer> <leader>db :GoDocBrowser<CR>
+autocmd FileType go nnoremap <buffer> <C-w><C-]> :<C-u>call go#def#Jump("vsplit")<CR>
+autocmd FileType go nnoremap <buffer> <C-w>] :<C-u>call go#def#Jump("split")<CR>
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#cmd#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+let g:go_fmt_command = "goimports"
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
