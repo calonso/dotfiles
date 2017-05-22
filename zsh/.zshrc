@@ -93,6 +93,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # VI Mode
 bindkey -v
 export KEYTIMEOUT=1
+bindkey "^R" history-incremental-pattern-search-backward
 
 function zle-line-init zle-keymap-select {
     VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
