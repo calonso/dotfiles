@@ -84,9 +84,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Add PostgreSQL app to path
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -105,10 +102,13 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 # GO
-export GOPATH=$HOME/go/src
+export GOPATH=$HOME/go
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/calonso/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/calonso/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/calonso/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/calonso/google-cloud-sdk/completion.zsh.inc'; fi
+
+alias k="kubectl"
+source <(kubectl completion zsh)  # setup autocomplete in zsh
