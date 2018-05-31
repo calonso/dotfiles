@@ -88,21 +88,22 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # VI Mode
-bindkey -v
-export KEYTIMEOUT=1
-bindkey "^R" history-incremental-pattern-search-backward
-
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
+# bindkey -v
+# export KEYTIMEOUT=1
+# bindkey "^R" history-incremental-pattern-search-backward
+#
+# function zle-line-init zle-keymap-select {
+    # VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
+    # RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+    # zle reset-prompt
+# }
+#
+# zle -N zle-line-init
+# zle -N zle-keymap-select
 
 # GO
 export GOPATH=$HOME/go
+export PATH=$GOPATH/bin/:$PATH
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/calonso/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/calonso/google-cloud-sdk/path.zsh.inc'; fi
@@ -112,3 +113,11 @@ if [ -f '/Users/calonso/google-cloud-sdk/completion.zsh.inc' ]; then source '/Us
 
 alias k="kubectl"
 source <(kubectl completion zsh)  # setup autocomplete in zsh
+
+# Java
+export JAVA_HOME=`/usr/libexec/java_home`
+
+# Python virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/dev
+source /usr/local/bin/virtualenvwrapper.sh
