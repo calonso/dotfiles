@@ -1,0 +1,9 @@
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+[user]
+	name = Carlos Alonso
+[core]
+	editor = vim
+	excludesfile = /Users/calonso/.gitignore_global
