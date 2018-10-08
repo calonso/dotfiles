@@ -29,10 +29,10 @@ ZSH_THEME="simple"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -68,6 +68,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -84,35 +85,21 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-# VI Mode
-# bindkey -v
-# export KEYTIMEOUT=1
-# bindkey "^R" history-incremental-pattern-search-backward
-#
-# function zle-line-init zle-keymap-select {
-    # VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
-    # RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-    # zle reset-prompt
-# }
-#
-# zle -N zle-line-init
-# zle -N zle-keymap-select
+# Homebrew
+export PATH=/usr/local/bin:$PATH
 
 # GO
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin/:$PATH
+# export GOPATH=$HOME/go
+# export PATH=$GOPATH/bin/:$PATH
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/calonso/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/calonso/google-cloud-sdk/path.zsh.inc'; fi
+# if [ -f '/Users/calonso/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/calonso/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/calonso/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/calonso/google-cloud-sdk/completion.zsh.inc'; fi
+# if [ -f '/Users/calonso/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/calonso/google-cloud-sdk/completion.zsh.inc'; fi
 
-alias k="kubectl"
-source <(kubectl completion zsh)  # setup autocomplete in zsh
+# alias k="kubectl"
+# source <(kubectl completion zsh)  # setup autocomplete in zsh
 
 # Java
 export JAVA_HOME=`/usr/libexec/java_home`
@@ -121,3 +108,8 @@ export JAVA_HOME=`/usr/libexec/java_home`
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/dev
 source /usr/local/bin/virtualenvwrapper.sh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

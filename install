@@ -1,0 +1,87 @@
+#!/bin/bash
+
+if [ ! "$#" -eq 1 ]; then
+  echo "1 argument (email) required, $# given"
+  exit 1
+fi
+
+ROOT=`pwd`
+EMAIL=$1
+
+# Generate SSH Key
+if [ -f ~/.ssh/id_rsa.pub ]; then
+  echo "Skipping SSH Key generation..."
+else
+  ssh-keygen -t rsa -b 4096 -C "$EMAIL"
+  eval "$(ssh-agent -s)"
+  echo -e "Host *\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_rsa" > ~/.ssh/config
+  ssh-add -K ~/.ssh/id_rsa
+fi
+
+# Install Homebrew
+if which brew > /dev/null; then
+  echo "Skipping Homebrew installation..."
+else
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Install Oh My ZSH
+if [ -d ~/.oh-my-zsh ]; then
+  echo "Skipping Oh My ZSH installation..."
+else
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fi
+
+# Install RVM
+if [ -d ~/.rvm ]; then
+  echo "Skipping RVM installation..."
+else
+  brew install gpg
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+  \curl -sSL https://get.rvm.io | bash -s stable
+  source ~/.rvm/scripts/rvm
+  rvm install 2.4
+  rvm use 2.4 --default
+fi
+
+# Install Virtualenvwrapper
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+  echo "Skipping Virtualenvwrapper installation..."
+else
+  sudo easy_install pip
+  sudo pip install virtualenvwrapper --ignore-installed six
+  mkdir -p ~/.virtualenvs
+fi
+
+# Installing Java
+if which java > /dev/null; then
+  echo "Skipping Java installation..."
+else
+  java --request
+fi
+
+# Installing vim and plugins
+if [ -d ~/.vim/bundle/Vundle.vim ]; then
+  echo "Skipping Vim plugins installation..."
+else
+  brew install vim --with-lua
+  brew install ack
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  mkdir -p ~/.vim/colors
+  ln -s "$ROOT"/vim/wombat256dave.vim ~/.vim/colors/wombat256dave.vim
+  ln -s "$ROOT"/vim/.vimrc ~/.vimrc
+  vim +PluginInstall +qall 2&> /dev/null
+fi
+
+# Git
+if [ -f ~/.gitignore_global ]; then
+  echo "Skipping Git configuration..."
+else
+  cp "$ROOT"/git/.gitconfig ~/.gitconfig
+  ln -s "$ROOT"/git/.gitignore_global ~/.gitignore_global
+  git config --global user.email "$EMAIL"
+fi
+
+# Linking...
+ln -s "$ROOT"/zsh/.zshrc ~/.zshrc
+
